@@ -86,20 +86,23 @@
       }
     });
     $(".contents .sendBox #msg").on("keyup", function (e) {
-      //console.log(e);
+      console.log(e);
       if (e.keyCode === 13) {
         if ($("#msg").val().trim() === "") {
           e.preventDefault();
           $("#msg").val("");
           return;
         }
-        if (e.shiftKey) {
-        } else {
-          const chattingItem = { nickName: $("#nickName").val(), msg: $(".sendBox #msg").val() };
+        if (!e.shiftKey) {
+          const chattingItem = {
+            nickName: $("#nickName").val(),
+            //msg: $(".sendBox #msg").val().replaceAll("\n", "<br>"),
+            msg: $(".sendBox #msg").val(),
+          };
           socket.emit("chatting", chattingItem);
           $("#msg").val("");
           $(".btnSend").removeClass("on");
-          console.log($(".sendBox #msg").val());
+          //console.log($(".sendBox #msg").val());
         }
       }
       if ($("#msg").val().trim() !== "") {
